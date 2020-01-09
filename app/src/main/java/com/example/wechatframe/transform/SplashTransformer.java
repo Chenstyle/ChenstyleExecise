@@ -46,7 +46,9 @@ public class SplashTransformer implements ViewPager.PageTransformer {
 
                 // [1, 0.5f]
                 float alphaA = MIN_ALPHA + (1 + MIN_ALPHA) * (1 + position);
-                page.setAlpha(alphaA);
+                page.setAlpha(1 + position);
+                L.d("alphaA = " + alphaA);
+                L.d("1 + position = " + (1 + position));
 
 
                 // b->a position : (-1, 0)
@@ -61,7 +63,9 @@ public class SplashTransformer implements ViewPager.PageTransformer {
                 page.setScaleY(scaleB);
 
                 float alphaB = MIN_ALPHA + (1 - MIN_ALPHA) * (1 - position);
-                page.setAlpha(alphaB);
+                page.setAlpha(1 - position);
+                L.d("alphaB = " + alphaB);
+                L.d("1 - position = " + (1 - position));
                 // b->a
                 // b , position : (0, 1)
                 // [1, 0.75f]
