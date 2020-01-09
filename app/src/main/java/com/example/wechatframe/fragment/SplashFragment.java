@@ -45,6 +45,7 @@ public class SplashFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mIvContent = view.findViewById(R.id.iv_content);
+        mIvContent.setTag(mResId);
         mIvContent.setImageResource(mResId);
     }
 }

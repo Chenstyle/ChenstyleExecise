@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.wechatframe.fragment.SplashFragment;
+import com.example.wechatframe.transform.SplashTransform;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -38,5 +39,7 @@ public class SplashActivity extends AppCompatActivity {
                 return mResIds.length;
             }
         });
+
+        mVpSplash.setPageTransformer(true, new SplashTransform());
     }
 }
