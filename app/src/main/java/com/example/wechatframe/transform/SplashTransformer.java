@@ -39,16 +39,17 @@ public class SplashTransformer implements ViewPager.PageTransformer {
             if (position < 0) {
                 // a->b position : (0, -1)
                 // [1, 0.75f]
-                // 从页面A滑动到页面B，position的值是从0到-1的。
+                // 从页面A滑动到页面B，A页面position的值是从0到-1的。
                 // 页面A的缩放值是从1到0.75之间的。
-                //
                 float scaleA = MIN_SCALE + (1 - MIN_SCALE) * (1 + position);
                 page.setScaleX(scaleA);
                 page.setScaleY(scaleA);
 
                 // [1, 0.5f]
+                // 左边的页面是要消失的，从清晰到模糊
                 float alphaA = MIN_ALPHA + (1 - MIN_ALPHA) * (1 + position);
                 page.setAlpha(alphaA);
+                L.d("alphaA = " + alphaA);
 
                 // b->a position : (-1, 0)
                 // [0.75f, 1]
@@ -57,12 +58,17 @@ public class SplashTransformer implements ViewPager.PageTransformer {
                 // a->b
                 // b, position : (1, 0)
                 // [0.75f, 1]
+                // 页面A滑动到页面B，B页面position的值是从1到0的。
+                // 页面B的缩放值是从0.75到1之间的
                 float scaleB = MIN_SCALE + (1 - MIN_SCALE) * (1 - position);
                 page.setScaleX(scaleB);
                 page.setScaleY(scaleB);
 
+                // [0.5, 1]
+                // 右边的页面是进入的，从模糊到清晰
                 float alphaB = MIN_ALPHA + (1 - MIN_ALPHA) * (1 - position);
                 page.setAlpha(alphaB);
+                L.d("alphaB = " + alphaB);
                 // b->a
                 // b , position : (0, 1)
                 // [1, 0.75f]
