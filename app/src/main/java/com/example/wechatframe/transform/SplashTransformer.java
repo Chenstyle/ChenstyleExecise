@@ -39,17 +39,16 @@ public class SplashTransformer implements ViewPager.PageTransformer {
             if (position < 0) {
                 // a->b position : (0, -1)
                 // [1, 0.75f]
-                L.d("设置左边");
+                // 从页面A滑动到页面B，position的值是从0到-1的。
+                // 页面A的缩放值是从1到0.75之间的。
+                //
                 float scaleA = MIN_SCALE + (1 - MIN_SCALE) * (1 + position);
                 page.setScaleX(scaleA);
                 page.setScaleY(scaleA);
 
                 // [1, 0.5f]
-                float alphaA = MIN_ALPHA + (1 + MIN_ALPHA) * (1 + position);
-                page.setAlpha(1 + position);
-                L.d("alphaA = " + alphaA);
-                L.d("1 + position = " + (1 + position));
-
+                float alphaA = MIN_ALPHA + (1 - MIN_ALPHA) * (1 + position);
+                page.setAlpha(alphaA);
 
                 // b->a position : (-1, 0)
                 // [0.75f, 1]
@@ -63,9 +62,7 @@ public class SplashTransformer implements ViewPager.PageTransformer {
                 page.setScaleY(scaleB);
 
                 float alphaB = MIN_ALPHA + (1 - MIN_ALPHA) * (1 - position);
-                page.setAlpha(1 - position);
-                L.d("alphaB = " + alphaB);
-                L.d("1 - position = " + (1 - position));
+                page.setAlpha(alphaB);
                 // b->a
                 // b , position : (0, 1)
                 // [1, 0.75f]
