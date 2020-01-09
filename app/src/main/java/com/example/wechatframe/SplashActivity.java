@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.wechatframe.fragment.SplashFragment;
-import com.example.wechatframe.transform.SplashTransform;
+import com.example.wechatframe.transform.SplashTransformer;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -40,6 +40,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
-        mVpSplash.setPageTransformer(true, new SplashTransform());
+        mVpSplash.setPageTransformer(true, new SplashTransformer());
     }
 }
