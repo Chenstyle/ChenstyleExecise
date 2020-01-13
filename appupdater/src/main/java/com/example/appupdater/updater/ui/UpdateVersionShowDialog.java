@@ -80,7 +80,7 @@ public class UpdateVersionShowDialog extends DialogFragment {
 
                 view.setEnabled(false);
 
-                File targetFile = new File(getActivity().getCacheDir(), "target.apk");
+                final File targetFile = new File(getActivity().getCacheDir(), "target.apk");
                 AppUpdater.getInstance().getNetManager().download(mDownloadBean.url, targetFile, new INetDownloadCallBack() {
                     @Override
                     public void success(File apkFile) {
@@ -89,8 +89,15 @@ public class UpdateVersionShowDialog extends DialogFragment {
                         Log.d("Chen", "success = " + apkFile.getAbsolutePath());
 
                         dismiss();
-                        // TODO check md5
-                        AppUtils.installApk(getActivity(), apkFile);
+
+                        String fileMd5 = AppUtils.getFileMd5(targetFile);
+                        Log.d("Chen", "md5 = " + fileMd5);
+                        if (fileMd5 != null && fileMd5.equals(mDownloadBean.md5)) {
+                            AppUtils.installApk(getActivity(), apkFile);
+                        } else {
+                            Toast.makeText(getActivity(), "md5 检测失败", Toast.LENGTH_SHORT).show();
+                        }
+                        
                     }
 
                     @Override
