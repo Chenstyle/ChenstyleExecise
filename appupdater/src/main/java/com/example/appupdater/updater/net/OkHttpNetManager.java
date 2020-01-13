@@ -2,12 +2,14 @@ package com.example.appupdater.updater.net;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -38,11 +40,11 @@ public class OkHttpNetManager implements INetManager {
     }
 
     @Override
-    public void get(String url, final INetCallBack callBack) {
+    public void get(String url, final INetCallBack callBack, Object tag) {
 
         // requestBuilder -> Request -> Call -> execute/enqueue
         Request.Builder builder = new Request.Builder();
-        Request request = builder.url(url).get().build();
+        Request request = builder.url(url).get().tag(tag).build();
         Call call = sOkHttpClient.newCall(request);
 //        Response response = call.execute(); // 同步的操作 在当前线程直接执行
         // 异步的操作
@@ -78,14 +80,14 @@ public class OkHttpNetManager implements INetManager {
     }
 
     @Override
-    public void download(String url, final File targetFile, final INetDownloadCallBack callBack) {
+    public void download(String url, final File targetFile, final INetDownloadCallBack callBack, Object tag) {
 
         if (!targetFile.exists()) {
             targetFile.getParentFile().mkdirs();
         }
 
         Request.Builder builder = new Request.Builder();
-        Request request = builder.url(url).get().build();
+        Request request = builder.url(url).get().tag(tag).build();
         Call call = sOkHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -116,7 +118,7 @@ public class OkHttpNetManager implements INetManager {
 
                     int bufferLen = 0; // 缓冲
                     // 如果没有读取完
-                    while ((bufferLen = is.read(buffer)) != -1) {
+                    while (!call.isCanceled() && (bufferLen = is.read(buffer)) != -1) {
                         os.write(buffer, 0, bufferLen); // 写入
                         os.flush(); // 刷新
                         curLen += bufferLen;
@@ -128,6 +130,10 @@ public class OkHttpNetManager implements INetManager {
                                 callBack.progress((int) (finalCurLen * 1.0f / totalLen * 100));
                             }
                         });
+                    }
+
+                    if (call.isCanceled()) {
+                        return;
                     }
 
                     try {
@@ -146,6 +152,9 @@ public class OkHttpNetManager implements INetManager {
                     });
                 } catch (final Throwable e) {
                     e.printStackTrace();
+                    if (call.isCanceled()) {
+                        return;
+                    }
                     sHandler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -162,5 +171,29 @@ public class OkHttpNetManager implements INetManager {
                 }
             }
         });
+    }
+
+    @Override
+    public void cancel(Object tag) {
+        List<Call> queuedCalls = sOkHttpClient.dispatcher().queuedCalls();
+        // 处在队列里面的 call
+        if (queuedCalls != null) {
+            for (Call call : queuedCalls) {
+                if (tag.equals(call.request().tag())) {
+                    Log.d("Chen", "find call = " + tag);
+                    call.cancel();
+                }
+            }
+        }
+
+        List<Call> runningCalls = sOkHttpClient.dispatcher().runningCalls();
+        if (runningCalls != null) {
+            for (Call runningCall : runningCalls) {
+                if (tag.equals(runningCall.request().tag())) {
+                    Log.d("Chen", "find call = " + tag);
+                    runningCall.cancel();
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.appupdater.updater.ui;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -114,8 +115,16 @@ public class UpdateVersionShowDialog extends DialogFragment {
                         Toast.makeText(getActivity(), "文件下载失败", Toast.LENGTH_SHORT).show();
 
                     }
-                });
+                }, UpdateVersionShowDialog.this);
             }
         });
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        Log.d("Chen", "onDismiss: ");
+        AppUpdater.getInstance().getNetManager().cancel(UpdateVersionShowDialog.this);
     }
 }

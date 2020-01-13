@@ -76,8 +76,14 @@ public class MainActivity extends FragmentActivity {
                         throwable.printStackTrace();
                         Toast.makeText(MainActivity.this, "版本更新接口请求失败", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }, MainActivity.this);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppUpdater.getInstance().getNetManager().cancel(MainActivity.this);
     }
 }

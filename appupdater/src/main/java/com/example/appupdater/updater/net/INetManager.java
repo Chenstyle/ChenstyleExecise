@@ -8,7 +8,9 @@ import java.io.File;
  */
 public interface INetManager {
 
-    void get(String url, INetCallBack callBack);
+    void get(String url, INetCallBack callBack, Object tag);
 
-    void download(String url, File targetFile, INetDownloadCallBack callBack);
+    void download(String url, File targetFile, INetDownloadCallBack callBack, Object tag);
+
+    void cancel(Object tag);
 }
