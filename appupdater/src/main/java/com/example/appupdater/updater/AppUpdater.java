@@ -15,8 +15,12 @@ public class AppUpdater {
     private INetManager mNetManager = new OkHttpNetManager();
 
     // 更好的方法：接口隔离具体实现，定义一个setManager方法，由传递参数的使用者决定使用哪一种网络框架
-    public void setNetManager(INetManager manager) {
+    /*public void setNetManager(INetManager manager) {
         mNetManager = manager;
+    }*/
+
+    public INetManager getNetManager() {
+        return mNetManager;
     }
 
     public static AppUpdater getInstance() {
