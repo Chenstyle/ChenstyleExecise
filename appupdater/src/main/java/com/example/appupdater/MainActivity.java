@@ -6,15 +6,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.appupdater.updater.AppUpdater;
+import com.example.appupdater.updater.bean.DownloadBean;
 import com.example.appupdater.updater.net.INetCallBack;
-import com.example.appupdater.updater.net.INetDownloadCallBack;
+import com.example.appupdater.updater.ui.UpdateVersionShowDialog;
+import com.example.appupdater.updater.utils.AppUtils;
 
-import java.io.File;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
 
     private Button mBtnUpdater;
 
@@ -46,22 +46,29 @@ public class MainActivity extends AppCompatActivity {
                         // 3.弹框
                         // 4.点击下载
 
-                        AppUpdater.getInstance().getNetManager().download("", null, new INetDownloadCallBack() {
-                            @Override
-                            public void success(File apkFile) {
-                                // 安装的代码
-                            }
+                        DownloadBean bean = DownloadBean.parse(response);
 
-                            @Override
-                            public void progress(int progress) {
-                                // 更新界面的代码
-                            }
+                        if (bean == null) {
+                            Toast.makeText(MainActivity.this, "版本检测接口返回数据异常", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                            @Override
-                            public void failed(Throwable throwable) {
-
+                        // 检测：是否需要弹框
+                        try {
+                            long versionCode = Long.parseLong(bean.versionCode);
+                            if (versionCode <= AppUtils.getVersionCode(MainActivity.this)) {
+                                Toast.makeText(MainActivity.this, "已经是最新版本，无需更新", Toast.LENGTH_SHORT).show();
+                                return;
                             }
-                        });
+                        } catch (NumberFormatException e) {
+                            // 依赖server的代码要潜在风险判断
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "版本检测接口返回版本号异常", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // 弹框
+                        UpdateVersionShowDialog.show(MainActivity.this, bean);
                     }
 
                     @Override
