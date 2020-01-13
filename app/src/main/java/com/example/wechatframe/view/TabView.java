@@ -10,18 +10,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.animation.ArgbEvaluator;
 
 import com.example.wechatframe.R;
 
 public class TabView extends FrameLayout {
 
+    private static final int COLOR_DEFAULT = Color.parseColor("#FF000000");
+    private static final int COLOR_SELECT = Color.parseColor("#FF45C01A");
     private ImageView mIvIcon;
     private ImageView mIvIconSelect;
     private TextView mTvTitle;
-
-    private static final int COLOR_DEFAULT = Color.parseColor("#FF000000");
-    private static final int COLOR_SELECT = Color.parseColor("#FF45C01A");
 
     public TabView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -50,14 +48,14 @@ public class TabView extends FrameLayout {
         int startInt = (Integer) startValue;
         float startA = ((startInt >> 24) & 0xff) / 255.0f;
         float startR = ((startInt >> 16) & 0xff) / 255.0f;
-        float startG = ((startInt >>  8) & 0xff) / 255.0f;
-        float startB = ( startInt        & 0xff) / 255.0f;
+        float startG = ((startInt >> 8) & 0xff) / 255.0f;
+        float startB = (startInt & 0xff) / 255.0f;
 
         int endInt = (Integer) endValue;
         float endA = ((endInt >> 24) & 0xff) / 255.0f;
         float endR = ((endInt >> 16) & 0xff) / 255.0f;
-        float endG = ((endInt >>  8) & 0xff) / 255.0f;
-        float endB = ( endInt        & 0xff) / 255.0f;
+        float endG = ((endInt >> 8) & 0xff) / 255.0f;
+        float endB = (endInt & 0xff) / 255.0f;
 
         // convert from sRGB to linear
         startR = (float) Math.pow(startR, 2.2);
