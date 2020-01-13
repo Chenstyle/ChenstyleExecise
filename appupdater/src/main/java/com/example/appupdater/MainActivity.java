@@ -1,11 +1,12 @@
 package com.example.appupdater;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appupdater.updater.AppUpdater;
 import com.example.appupdater.updater.net.INetCallBack;
@@ -26,9 +27,12 @@ public class MainActivity extends AppCompatActivity {
         mBtnUpdater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUpdater.getInstance().getNetManager().get("", new INetCallBack() {
+                AppUpdater.getInstance().getNetManager().get("http://59.110.162.30/app_updater_version.json", new INetCallBack() {
                     @Override
                     public void success(String response) {
+
+                        Log.d("Chen", "response = " + response);
+                        
                         // 1.解析json
                         // {
                         //    "title":"4.5.0更新啦！",
@@ -62,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void failed(Throwable throwable) {
+                        throwable.printStackTrace();
                         Toast.makeText(MainActivity.this, "版本更新接口请求失败", Toast.LENGTH_SHORT).show();
                     }
                 });
