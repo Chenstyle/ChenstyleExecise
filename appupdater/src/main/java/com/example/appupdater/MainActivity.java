@@ -14,6 +14,8 @@ import com.example.appupdater.updater.net.INetCallBack;
 import com.example.appupdater.updater.ui.UpdateVersionShowDialog;
 import com.example.appupdater.updater.utils.AppUtils;
 
+import java.io.File;
+
 public class MainActivity extends FragmentActivity {
 
     private Button mBtnUpdater;
@@ -85,5 +87,11 @@ public class MainActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         AppUpdater.getInstance().getNetManager().cancel(MainActivity.this);
+    }
+
+    public void deleteDownloaded(View view) {
+        File targetFile = new File(getCacheDir(), "target.apk");
+        targetFile.delete();
+        Toast.makeText(this, "已删除下载的文件", Toast.LENGTH_SHORT).show();
     }
 }

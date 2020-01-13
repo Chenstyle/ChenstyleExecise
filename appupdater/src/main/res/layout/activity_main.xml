@@ -12,4 +12,10 @@
         android:layout_height="wrap_content"
         android:text="版本更新" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deleteDownloaded"
+        android:text="删除已下载" />
+
 </LinearLayout>

@@ -82,6 +82,15 @@ public class UpdateVersionShowDialog extends DialogFragment {
                 view.setEnabled(false);
 
                 final File targetFile = new File(getActivity().getCacheDir(), "target.apk");
+                // 检测是否已经下载好了Apk文件，避免重复下载
+                String fileMd5 = AppUtils.getFileMd5(targetFile);
+                if (fileMd5 != null && fileMd5.equals(mDownloadBean.md5)) {
+                    Log.d("Chen", "已经下载好了文件，直接安装");
+                    AppUtils.installApk(getActivity(), targetFile);
+                    dismiss();
+                    return;
+                }
+
                 AppUpdater.getInstance().getNetManager().download(mDownloadBean.url, targetFile, new INetDownloadCallBack() {
                     @Override
                     public void success(File apkFile) {
