@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <root-path
+        name="root"
+        path="."></root-path>
+    <files-path
+        name="files"
+        path="."></files-path>
+    <!--
+    文件映射在ContentProvider里面
+    cachedir/targetFile -> content://cache/targetFile
+    content://cache/targetFile -> cache-path/targetFile -> getCacheDir/targetFile
+    -->
+    <cache-path
+        name="cache"
+        path="."></cache-path>
+
+    <external-path
+        name="external"
+        path="."></external-path>
+
+    <external-cache-path
+        name="external_cache"
+        path="."></external-cache-path>
+
+    <external-files-path
+        name="external_file"
+        path="."></external-files-path>
+</paths>
