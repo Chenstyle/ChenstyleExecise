@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Android P的网络安全策略是不允许访问http开头的url接口的 所以要加这个明文允许配置 -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true"></base-config>
+</network-security-config>
