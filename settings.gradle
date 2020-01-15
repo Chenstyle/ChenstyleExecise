@@ -1,2 +1,2 @@
-include ':app', ':appupdater', ':okhttplearn'
+include ':app', ':appupdater', ':okhttplearn', ':officialguide'
 rootProject.name='WechatFrame'
