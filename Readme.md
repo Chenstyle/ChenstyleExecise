@@ -6,8 +6,10 @@
 
 所以全部都写在一个工程项目中。
 
-下面是各功能点直达链接：
+下面是各模块点直达链接：
 
 [ViewPager+Tab特效实现微信主界面](https://github.com/Chenstyle/WechatMainInterface/blob/master/app)
 
 [Android应用内升级App](https://github.com/Chenstyle/WechatMainInterface/blob/master/appupdater)
+
+[Java练习代码](https://github.com/Chenstyle/WechatMainInterface/blob/master/appupdater/exercise)
