@@ -12,4 +12,4 @@
 
 [Android应用内升级App](https://github.com/Chenstyle/WechatMainInterface/blob/master/appupdater)
 
-[Java练习代码](https://github.com/Chenstyle/WechatMainInterface/blob/master/appupdater/exercise)
+[Java练习代码](https://github.com/Chenstyle/WechatMainInterface/blob/master/exercise)
