@@ -13,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @auther lizhi
  * @time 2020-1-17 23:49
  */
-public class CopyOnWriteList {
+public class T02_CopyOnWriteList {
     public static void main(String[] args) {
         List<String> lists =
 //                new ArrayList<>(); // 这个会出并发问题
