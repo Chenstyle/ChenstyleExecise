@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
  * @auther to Chenstyle
  * @time 2020-1-19 14:44
  */
-public class T04_ThreadPool {
+public class T05_ThreadPool {
     public static void main(String[] args) throws InterruptedException {
         ExecutorService service = Executors.newFixedThreadPool(5);
         for (int i = 0; i < 6; i++) {
