@@ -1,4 +1,4 @@
-package com.example.exercise.concurrence.e_19;
+package com.example.exercise.concurrence.e_019;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +15,14 @@ import java.util.concurrent.TimeUnit;
  * 需要注意的是，运用这种方法，必须保证t2先执行，也就是首先让t2监听才可以
  *
  * 可以读到输出结果并不是 size=5时t2退出，而是t1结束时t2才收到通知而退出
- * 想想这是为什么
+ * 想想这是为什么？
+ *
+ * notify之后，t1必须释放锁，t2退出后，也必须notify，通知t1继续执行
+ * 整个通信比较繁琐
  * @auther lizhi
  * @time 2020-1-26 22:53
  */
-public class MyContainer3 {
+public class MyContainer4 {
 
     volatile List list = new ArrayList();
 
@@ -32,7 +35,7 @@ public class MyContainer3 {
     }
 
     public static void main(String[] args) {
-        MyContainer3 c = new MyContainer3();
+        MyContainer4 c = new MyContainer4();
 
         final Object lock = new Object();
 
@@ -47,6 +50,8 @@ public class MyContainer3 {
                     }
                 }
                 System.out.println("t2 shutdown");
+                // 通知t1继续执行
+                lock.notify();
             }
         }, "t2").start();
 
@@ -59,6 +64,12 @@ public class MyContainer3 {
 
                     if (c.size() == 5) {
                         lock.notify();
+                        // 释放锁，让t1得以执行
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     try {
