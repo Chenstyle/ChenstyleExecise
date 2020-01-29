@@ -49,7 +49,9 @@ public class ReentrantLock4 {
             } catch (InterruptedException e) {
                 System.out.println("interrupted!");
             } finally {
-                lock.unlock();
+                if (lock.tryLock()) {
+                    lock.unlock();
+                }
             }
         });
         t2.start();
