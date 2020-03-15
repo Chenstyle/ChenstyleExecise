@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/WechatFrame.iml" filepath="$PROJECT_DIR$/WechatFrame.iml" group="WechatFrame" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/WechatMainInterface.iml" filepath="$PROJECT_DIR$/.idea/WechatMainInterface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appupdater/WechatMainInterface-appupdater.iml" filepath="$PROJECT_DIR$/appupdater/WechatMainInterface-appupdater.iml" group="WechatFrame/appupdater" />
+      <module fileurl="file://$PROJECT_DIR$/okhttplearn/WechatMainInterface-okhttplearn.iml" filepath="$PROJECT_DIR$/okhttplearn/WechatMainInterface-okhttplearn.iml" group="WechatFrame/okhttplearn" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="WechatFrame/app" />
+      <module fileurl="file://$PROJECT_DIR$/appupdater/appupdater.iml" filepath="$PROJECT_DIR$/appupdater/appupdater.iml" />
+      <module fileurl="file://$PROJECT_DIR$/exercise/exercise.iml" filepath="$PROJECT_DIR$/exercise/exercise.iml" group="WechatFrame/exercise" />
+      <module fileurl="file://$PROJECT_DIR$/handler/handler.iml" filepath="$PROJECT_DIR$/handler/handler.iml" group="WechatFrame/handler" />
+      <module fileurl="file://$PROJECT_DIR$/officialguide/officialguide.iml" filepath="$PROJECT_DIR$/officialguide/officialguide.iml" group="WechatFrame/officialguide" />
+      <module fileurl="file://$PROJECT_DIR$/okhttplearn/okhttplearn.iml" filepath="$PROJECT_DIR$/okhttplearn/okhttplearn.iml" />
+    </modules>
+  </component>
+</project>
